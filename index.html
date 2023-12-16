@@ -26,11 +26,12 @@
         <label for="productDescription">Product Description :</label>
         <textarea id="productDescription" class="form-control mb-4" ></textarea>
 
-        <button onclick="addProduct()" class="btn btn-outline-primary">Add Product</button>
+        <button id="addProductBtn" onclick="addProduct()" class="btn btn-outline-primary">Add Product</button>
         <button onclick="clearForm()" class="btn btn-outline-primary">Clear</button>
+        <!-- <button onclick="updateTable()" class="btn btn-outline-primary">update</button> -->
     </div>
 
-    <input type="search" class="form-control w-25 mx-auto" placeholder="Seaech...">
+    <input id="searshBtn" oninput="searchInTable()" type="search" class="form-control w-25 mx-auto" placeholder="Seaech...">
 
     <div class="table-responsive mt-5 w-75 mx-auto text-center">
         <table class="table table-striped">
