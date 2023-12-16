@@ -4,13 +4,14 @@ var productCategory = document.getElementById('productCategory');
 var productDescription = document.getElementById('productDescription');
 var addProductBtn = document.getElementById('addProductBtn');
 var searchInput = document.getElementById("searshBtn");
-
 var productList = [];
-// localStorage.setItem("productData",JSON.stringify(productList))
-productList = JSON.parse(localStorage.getItem("productData"));
-showData(productList);
-
 var deletedIndex = 0;
+
+// localStorage.setItem("productData",JSON.stringify(productList))
+if(localStorage.getItem("productData" != null)){
+    productList = JSON.parse(localStorage.getItem("productData"));
+    showData(productList);
+}
 
 function addProduct(){
     // console.log(addProductBtn.innerHTML);
