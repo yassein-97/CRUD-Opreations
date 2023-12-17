@@ -7,8 +7,8 @@ var searchInput = document.getElementById("searshBtn");
 var productList = [];
 var deletedIndex = 0;
 
-// localStorage.setItem("productData",JSON.stringify(productList))
-if(localStorage.getItem("productData" != null)){
+
+if(localStorage.getItem("productData") != null){
     productList = JSON.parse(localStorage.getItem("productData"));
     showData(productList);
 }
