@@ -14,7 +14,6 @@ if(localStorage.getItem("productData") != null){
 }
 
 function addProduct(){
-    // console.log(addProductBtn.innerHTML);
     if(addProductBtn.innerHTML == "update"){
         updateTable();
     }
@@ -47,7 +46,7 @@ function clearForm(){
 }
 
 
-function showData(list){
+function showData(list,searchElement){
 
     if(list.length == 0){
         document.getElementById("tbody").innerHTML =`
@@ -63,7 +62,9 @@ function showData(list){
         container += `
         <tr class="" id="${i+1}">
         <td scope="row">${i+1}</td>
-        <td>${list[i].name}</td>
+        <td>
+            ${searchElement ? list[i].name.replaceAll(searchElement,`<span class="bg-danger">${searchElement}</span>`) : list[i].name }
+        </td>
         <td>${list[i].price}</td>
         <td>${list[i].category}</td>
         <td>${list[i].description}</td>
@@ -74,8 +75,6 @@ function showData(list){
     }
     document.getElementById("tbody").innerHTML = container;
     }
-    
-
 
     // container = `
     // <tr class="" id="${productList.length}">
@@ -94,20 +93,9 @@ function showData(list){
 }
 
 function deleteRow(x){
-    // if(x == 0 || x == 1 || x==2){
-    //     alert("this row can`t be deleted");
-    // }
-    // else{
-    //     productList.splice(x,1)
-    //     localStorage.setItem("productData",JSON.stringify(productList));
-    //     showData(productList);
-    // }
-    // console.log(x);
     productList.splice(x,1)
     localStorage.setItem("productData",JSON.stringify(productList));
     showData(productList);
-    
-    // document.getElementById('tbody').deleteRow(x);
 }
 
 
@@ -141,19 +129,13 @@ function updateTable(x){
 }
 
 function searchInTable(){
-    
     var search = searchInput.value.toLowerCase();
     var searchProduct = [];
-    // console.log(search);
+
     for(var i=0 ; i<productList.length ; i++){
         if(productList[i].name.toLowerCase().includes(search)){
             searchProduct.push(productList[i]);
         }
-        // console.log(searchProduct);
-        showData(searchProduct);
+        showData(searchProduct,searchInput.value);
     }
-
-    // console.log(productList.includes(search));
-    // console.log(productList[0].name == search);;
-    // console.log(productList[0] == search);;
 }
