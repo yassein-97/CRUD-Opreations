@@ -63,11 +63,15 @@ function showData(list,searchElement){
         <tr class="" id="${i+1}">
         <td scope="row">${i+1}</td>
         <td>
-            ${searchElement ? list[i].name.replaceAll(searchElement,`<span class="bg-danger">${searchElement}</span>`) : list[i].name }
+            ${searchElement ? list[i].name.replaceAll(searchElement,`<span class="bg-secondary text-white">${searchElement}</span>`) : list[i].name }
         </td>
         <td>${list[i].price}</td>
-        <td>${list[i].category}</td>
-        <td>${list[i].description}</td>
+        <td> 
+            ${searchElement ? list[i].category.replaceAll(searchElement,`<span class="bg-secondary text-white">${searchElement}</span>`) : list[i].category }
+        </td>
+        <td>
+            ${searchElement ? list[i].description.replaceAll(searchElement,`<span class="bg-secondary text-white">${searchElement}</span>`) : list[i].description }
+        </td>
         <td><button onclick="setFormForUpdate(${i})" class="btn btn-outline-warning"><i class="icon-edit fs-5"></i></button></td>
         <td><button onclick="deleteRow(${i})" class="btn btn-outline-danger"><i class="icon-trash fs-5"></i></button></td>
         </tr>
@@ -133,7 +137,9 @@ function searchInTable(){
     var searchProduct = [];
 
     for(var i=0 ; i<productList.length ; i++){
-        if(productList[i].name.toLowerCase().includes(search)){
+        if(productList[i].name.toLowerCase().includes(search) || 
+        productList[i].category.toLowerCase().includes(search) ||
+        productList[i].description.toLowerCase().includes(search)){
             searchProduct.push(productList[i]);
         }
         showData(searchProduct,searchInput.value);
