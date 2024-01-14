@@ -1,11 +1,11 @@
-var productName = document.getElementById('productName');
-var productPrice = document.getElementById('productPrice');
-var productCategory = document.getElementById('productCategory');
-var productDescription = document.getElementById('productDescription');
-var addProductBtn = document.getElementById('addProductBtn');
-var searchInput = document.getElementById("searshBtn");
-var productList = [];
-var deletedIndex = 0;
+const productName = document.getElementById('productName');
+const productPrice = document.getElementById('productPrice');
+const productCategory = document.getElementById('productCategory');
+const productDescription = document.getElementById('productDescription');
+const addProductBtn = document.getElementById('addProductBtn');
+const searchInput = document.getElementById("searshBtn");
+let productList = [];
+let deletedIndex = 0;
 
 
 if(localStorage.getItem("productData") != null){
@@ -13,18 +13,26 @@ if(localStorage.getItem("productData") != null){
     showData(productList);
 }
 
+class Product{
+    constructor(name, price, category, description) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
+        this.description = description;
+    }
+}
+
 function addProduct(){
+    let product = new Product(productName.value,productPrice.value,productCategory.value,productDescription.value);
     if(addProductBtn.innerHTML == "update"){
-        updateTable();
+        if(product.name == '' || product.price == '' | product.category || product.description == ''){
+            alert("Please fill out all fields");
+        }
+        else{
+            updateTable();
+        };
     }
     else{
-        var product = {
-            name: productName.value,
-            price: productPrice.value,
-            category: productCategory.value,
-            description: productDescription.value,
-        }
-        
         if(product.name == '' || product.price == '' | product.category || product.description == ''){
             alert("Please fill out all fields");
         }
@@ -56,9 +64,9 @@ function showData(list,searchElement){
         `
     }
     else{
-        var container = '';
+        let container = '';
     // document.getElementById("tbody").innerHTML += `
-    for(var i=0; i< list.length ; i++){
+    for(let i=0; i< list.length ; i++){
         container += `
         <tr class="" id="${i+1}">
         <td scope="row">${i+1}</td>
@@ -114,18 +122,8 @@ function setFormForUpdate(x){
 
 function updateTable(x){
     x = deletedIndex;
-    var product = {
-        name: productName.value,
-        price: productPrice.value,
-        category: productCategory.value,
-        description: productDescription.value
-    }
+    let product = new Product(productName.value,productPrice.value,productCategory.value,productDescription.value);
     productList.splice(x,1,product);
-
-    // productList[x].name = productName.value;
-    // productList[x].price = productPrice.value;
-    // productList[x].category = productCategory.value;
-    // productList[x].description = productDescription.value
     localStorage.setItem("productData",JSON.stringify(productList));
     clearForm();
     showData(productList);
@@ -133,10 +131,10 @@ function updateTable(x){
 }
 
 function searchInTable(){
-    var search = searchInput.value.toLowerCase();
-    var searchProduct = [];
+    let search = searchInput.value.toLowerCase();
+    let searchProduct = [];
 
-    for(var i=0 ; i<productList.length ; i++){
+    for(let i=0 ; i<productList.length ; i++){
         if(productList[i].name.toLowerCase().includes(search) || 
         productList[i].category.toLowerCase().includes(search) ||
         productList[i].description.toLowerCase().includes(search)){
